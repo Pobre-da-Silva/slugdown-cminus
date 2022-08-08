@@ -1,11 +1,24 @@
-#include "slugdown.h"
+#include "include/slugdown.hpp"
 #include <iostream>
+#include <array>
+#include <string>
 
 int main() {
-	std::cout << "algo" << std::endl;
-	setSlugdownTime(2000);
-	getSlugdownTime();
-	slugdown([]() {
-		std::cout << "algo" << std::endl;
-	});
+	if (Slugdown::getSlugdownTime() != 2000) {
+		Slugdown::setSlugdownTime(2000);
+	}
+
+	std::array<std::string, 12> months = {
+		"January", "February", "March", "April", "May", "June",
+		"July", "August", "September", "October", "November",
+		"December"
+	};
+
+	for (auto month : months) {
+		Slugdown::slugdown([&]() {
+			std::cout << month << std::endl;
+		});
+	}
+
+	return EXIT_SUCCESS;
 }

@@ -1,0 +1,7 @@
+# Build systems
+Makefile
+**.make
+
+# Compiled binaries
+/lib
+/obj
