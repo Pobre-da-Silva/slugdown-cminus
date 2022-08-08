@@ -1,33 +1,20 @@
 #ifndef SLUGDOWN_H
 #define SLUGDOWN_H
 
-#ifdef _WIN32
-#include <Windows.h>
-#else
-#include <unistd.h>
-#endif
+#include <functional>
+#include <thread>
+#include <chrono>
 
-#include <iostream>
-
-using namespace std;
-
-int slugdownTime = 0;
-int setSlugdownTime(int time) {
+uint32_t slugdownTime = 200;
+void setSlugdownTime(uint32_t time) {
 	slugdownTime = time;
+}
+uint32_t getSlugdownTime() {
 	return slugdownTime;
 }
-int getSlugdownTime() {
-    cout << time;
-	return slugdownTime;
-}
-int slugdown() {
-	int time = slugdownTime;
-#ifdef _WIN32
-	Sleep(time);
-#else
-	sleep(time);
-#endif
-	return slugdownTime;
+void slugdown(std::function<void(void)> activity) {
+	std::this_thread::sleep_for(std::chrono::milliseconds(slugdownTime));
+	activity();
 }
 
 #endif
